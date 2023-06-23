@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="background-color: aqua; height: 500px;">
+    <h3>Enter City</h3>
+    <input type="text" id="loc">
+    <button onclick="city()">Submit</button>
+    <div id="box"></div>
+
+    <script>
+        async function city() {
+
+
+            var location = document.getElementById("loc").value;
+            console.log(location)
+            let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=69fcb514f767841ee08af4292b065051`)
+                .then(res => res.json())
+                .catch((err) => {
+                    console.log(err.message)
+                })
+            console.log(data)
+            var weather = document.getElementById("box");
+            weather.innerHTML = "Weather" + "<br>" + "Base = " + data.base + "<br>" + "Clouds =" + data.clouds.all + "<br>" + "COD =" + data.cod + "<br>" +
+                "DT = " + data.dt + "<br>" + "ID = " + data.id + "<br>"
+                + "Temp = " + data.main.temp + "<br>" + "Temp Max = " + data.main.temp_max + "<br>" + "Temp Min = " + data.main.temp_min + "<br>";
+        }
+    </script>
+    </div>
+</body>
+
+</html>
